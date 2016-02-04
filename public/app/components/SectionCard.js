@@ -4,7 +4,7 @@ class SectionCard extends React.Component {
 
 	render(){
 		var interests = this.props.profile.interests.map(function(interest){
-			return <span className="tag">{interest}</span>;
+			return <span key={interest} className="tag">{interest}</span>;
 
 		});
 
