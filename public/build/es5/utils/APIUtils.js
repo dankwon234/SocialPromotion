@@ -33,7 +33,7 @@ function urlRequest(method, path, params) {
 module.exports = {
 
 	registerProfile: function registerProfile(profile) {
-		console.log("APIUtils - registerProfile: " + JSON.stringify(profile));
+		//		console.log('APIUtils - registerProfile: '+JSON.stringify(profile));
 		urlRequest("post", "/api/profile", profile).then(function (response) {
 			console.log("API UTILS - RESPONSE: " + JSON.stringify(response));
 			//			FullStackServerActionCreator.userLoggedIn(response.profile);

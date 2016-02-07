@@ -16,6 +16,8 @@ var SectionCard = _interopRequire(require("../../components/SectionCard"));
 
 var PostCard = _interopRequire(require("../../components/PostCard"));
 
+var Register = _interopRequire(require("../../components/Register"));
+
 var SPActionCreator = _interopRequire(require("../../actions/SPActionCreator"));
 
 var Home = (function (_React$Component) {
@@ -24,56 +26,14 @@ var Home = (function (_React$Component) {
 
 		//		console.log('Home: constructor');
 		_get(Object.getPrototypeOf(Home.prototype), "constructor", this).call(this, props, context);
-		this.updateVisitor = this.updateVisitor.bind(this);
-		this.signUp = this.signUp.bind(this);
-		this.selectLocation = this.selectLocation.bind(this);
 		this.state = {
-			posts: [{ id: 1, type: "Job", title: "Hiring Software Intern", company: "Bedrocket Media", description: "This is the description. This is the description. This is the description. This is the description. This is the description.", location: "NYC", tags: ["programming", "Angular JS"], image: "catherine.png" }, { id: 2, type: "Rental", title: "Apartment Available", company: "", description: "This is the description. This is the description. This is the description. This is the description. This is the description.", location: "NYC", tags: ["programming", "Angular JS"], image: "catherine.png" }, { id: 3, type: "Event", title: "Startup Investing Workshop", company: "Bedrocket Media", description: "This is the description. This is the description. This is the description. This is the description. This is the description.", location: "NYC", tags: ["programming", "Angular JS"], image: "catherine.png" }, { id: 4, type: "General", title: "Software Intern", company: "Bedrocket Media", description: "This is the description. This is the description. This is the description. This is the description. This is the description.", location: "NYC", tags: ["programming", "Angular JS"], image: "catherine.png" }],
-			visitor: {
-				name: "",
-				email: "",
-				city: "new york"
-			}
+			posts: [{ id: 1, type: "Job", title: "Hiring Software Intern", company: "Bedrocket Media", description: "This is the description. This is the description. This is the description. This is the description. This is the description.", location: "NYC", tags: ["programming", "Angular JS"], image: "catherine.png" }, { id: 2, type: "Rental", title: "Apartment Available", company: "", description: "This is the description. This is the description. This is the description. This is the description. This is the description.", location: "NYC", tags: ["programming", "Angular JS"], image: "catherine.png" }, { id: 3, type: "Event", title: "Startup Investing Workshop", company: "Bedrocket Media", description: "This is the description. This is the description. This is the description. This is the description. This is the description.", location: "NYC", tags: ["programming", "Angular JS"], image: "catherine.png" }, { id: 4, type: "Misc", title: "Software Intern", company: "Bedrocket Media", description: "This is the description. This is the description. This is the description. This is the description. This is the description.", location: "NYC", tags: ["programming", "Angular JS"], image: "catherine.png" }]
 		};
 	}
 
 	_inherits(Home, _React$Component);
 
 	_prototypeProperties(Home, null, {
-		signUp: {
-			value: function signUp(event) {
-				event.preventDefault();
-				console.log("Sign Up: " + JSON.stringify(this.state.visitor));
-				if (this.state.visitor.name.length == 0) {
-					alert("Please enter your NAME");
-					return;
-				}
-
-				if (this.state.visitor.email.length == 0) {
-					alert("Please enter your EMAIL");
-					return;
-				}
-
-				SPActionCreator.registerProfile(this.state.visitor);
-			},
-			writable: true,
-			configurable: true
-		},
-		selectLocation: {
-			value: function selectLocation(event) {
-				this.state.visitor.location = event.target.value;
-				console.log("Select Location: " + JSON.stringify(this.state.visitor));
-			},
-			writable: true,
-			configurable: true
-		},
-		updateVisitor: {
-			value: function updateVisitor(event) {
-				this.state.visitor[event.target.id] = event.target.value;
-			},
-			writable: true,
-			configurable: true
-		},
 		render: {
 			value: function render() {
 				var sections = this.state.posts.map(function (post) {
@@ -114,43 +74,7 @@ var Home = (function (_React$Component) {
 								React.createElement(
 									"div",
 									{ className: "col-md-4 col-md-push-3" },
-									React.createElement(
-										"div",
-										{ className: "front-panel" },
-										React.createElement(
-											"h2",
-											null,
-											"Apply"
-										),
-										React.createElement("hr", null),
-										"Apply for our beta and be among the first on the platform when we launch in Spring.",
-										React.createElement("input", { onChange: this.updateVisitor, id: "name", type: "text", placeholder: "Name", style: { background: "#f9f9f9", borderRadius: 3, marginTop: 14 }, className: "form-control" }),
-										React.createElement("input", { onChange: this.updateVisitor, id: "email", type: "text", placeholder: "Email", style: { background: "#f9f9f9", borderRadius: 3, marginTop: 9 }, className: "form-control" }),
-										React.createElement(
-											"select",
-											{ onChange: this.selectLocation, className: "form-control", style: { background: "#f9f9f9", height: 36, marginBottom: 32 } },
-											React.createElement(
-												"option",
-												null,
-												"New York"
-											),
-											React.createElement(
-												"option",
-												null,
-												"Boston"
-											),
-											React.createElement(
-												"option",
-												null,
-												"San Francisco"
-											)
-										),
-										React.createElement(
-											"a",
-											{ onClick: this.signUp, href: "#", className: "btn-primary btn btn-small button btn-round xs-margin-bottom-five" },
-											"Submit"
-										)
-									)
+									React.createElement(Register, null)
 								)
 							)
 						)
@@ -178,43 +102,7 @@ var Home = (function (_React$Component) {
 										null,
 										"Social Promotion will be a closed platform for exclusive job listings, business partnerships, events, rentals and more. By curating our membership, we ensure that all content on SP is a legitimate opportunity with high performing individuals."
 									),
-									React.createElement(
-										"div",
-										{ className: "front-panel" },
-										React.createElement(
-											"h2",
-											null,
-											"Apply"
-										),
-										React.createElement("hr", null),
-										"Apply for our beta and be among the first on the platform when we launch in Spring.",
-										React.createElement("input", { onChange: this.updateVisitor, id: "name", type: "text", placeholder: "Name", style: { background: "#f9f9f9", borderRadius: 3, marginTop: 14 }, className: "form-control" }),
-										React.createElement("input", { onChange: this.updateVisitor, id: "email", type: "text", placeholder: "Email", style: { background: "#f9f9f9", borderRadius: 3, marginTop: 9 }, className: "form-control" }),
-										React.createElement(
-											"select",
-											{ onChange: this.selectLocation, className: "form-control", style: { background: "#f9f9f9", height: 36, marginBottom: 32 } },
-											React.createElement(
-												"option",
-												null,
-												"New York"
-											),
-											React.createElement(
-												"option",
-												null,
-												"Boston"
-											),
-											React.createElement(
-												"option",
-												null,
-												"San Francisco"
-											)
-										),
-										React.createElement(
-											"a",
-											{ onClick: this.signUp, href: "#", className: "btn-primary btn btn-small button btn-round xs-margin-bottom-five" },
-											"Submit"
-										)
-									)
+									React.createElement(Register, null)
 								),
 								React.createElement(
 									"div",
