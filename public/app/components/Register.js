@@ -19,7 +19,7 @@ class Register extends React.Component {
 
 	signUp(event){
 		event.preventDefault();
-		console.log('Sign Up: '+JSON.stringify(this.state.visitor));
+//		console.log('Sign Up: '+JSON.stringify(this.state.visitor));
 		if (this.state.visitor.name.length == 0){
 			alert('Please enter your NAME')
 			return
@@ -35,7 +35,7 @@ class Register extends React.Component {
 
 	selectLocation(event){
 		this.state.visitor['location'] = event.target.value;
-		console.log('Select Location: '+JSON.stringify(this.state.visitor));
+//		console.log('Select Location: '+JSON.stringify(this.state.visitor));
 	}
 
 	updateVisitor(event){
