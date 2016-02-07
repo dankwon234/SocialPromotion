@@ -14,6 +14,10 @@ var React = _interopRequire(require("react"));
 
 var SectionCard = _interopRequire(require("../../components/SectionCard"));
 
+var PostCard = _interopRequire(require("../../components/PostCard"));
+
+var SPActionCreator = _interopRequire(require("../../actions/SPActionCreator"));
+
 var Home = (function (_React$Component) {
 	function Home(props, context) {
 		_classCallCheck(this, Home);
@@ -21,12 +25,14 @@ var Home = (function (_React$Component) {
 		//		console.log('Home: constructor');
 		_get(Object.getPrototypeOf(Home.prototype), "constructor", this).call(this, props, context);
 		this.updateVisitor = this.updateVisitor.bind(this);
+		this.signUp = this.signUp.bind(this);
+		this.selectLocation = this.selectLocation.bind(this);
 		this.state = {
-			sections: [{ title: "First Section", description: "This is the description", image: "node.png" }, { title: "Second Section", description: "This is the description", image: "ios.jpg" }, { title: "Third Section", description: "This is the description", image: "node.png" }],
+			posts: [{ id: 1, type: "Job", title: "Hiring Software Intern", company: "Bedrocket Media", description: "This is the description. This is the description. This is the description. This is the description. This is the description.", location: "NYC", tags: ["programming", "Angular JS"], image: "catherine.png" }, { id: 2, type: "Rental", title: "Apartment Available", company: "", description: "This is the description. This is the description. This is the description. This is the description. This is the description.", location: "NYC", tags: ["programming", "Angular JS"], image: "catherine.png" }, { id: 3, type: "Event", title: "Startup Investing Workshop", company: "Bedrocket Media", description: "This is the description. This is the description. This is the description. This is the description. This is the description.", location: "NYC", tags: ["programming", "Angular JS"], image: "catherine.png" }, { id: 4, type: "General", title: "Software Intern", company: "Bedrocket Media", description: "This is the description. This is the description. This is the description. This is the description. This is the description.", location: "NYC", tags: ["programming", "Angular JS"], image: "catherine.png" }],
 			visitor: {
 				name: "",
 				email: "",
-				city: ""
+				city: "new york"
 			}
 		};
 	}
@@ -37,14 +43,32 @@ var Home = (function (_React$Component) {
 		signUp: {
 			value: function signUp(event) {
 				event.preventDefault();
-				console.log("Sign Up");
+				console.log("Sign Up: " + JSON.stringify(this.state.visitor));
+				if (this.state.visitor.name.length == 0) {
+					alert("Please enter your NAME");
+					return;
+				}
+
+				if (this.state.visitor.email.length == 0) {
+					alert("Please enter your EMAIL");
+					return;
+				}
+
+				SPActionCreator.registerProfile(this.state.visitor);
+			},
+			writable: true,
+			configurable: true
+		},
+		selectLocation: {
+			value: function selectLocation(event) {
+				this.state.visitor.location = event.target.value;
+				console.log("Select Location: " + JSON.stringify(this.state.visitor));
 			},
 			writable: true,
 			configurable: true
 		},
 		updateVisitor: {
 			value: function updateVisitor(event) {
-				console.log("updateVisitor: " + event.target.value);
 				this.state.visitor[event.target.id] = event.target.value;
 			},
 			writable: true,
@@ -52,8 +76,8 @@ var Home = (function (_React$Component) {
 		},
 		render: {
 			value: function render() {
-				var sections = this.state.sections.map(function (section) {
-					return React.createElement(SectionCard, { section: section });
+				var sections = this.state.posts.map(function (post) {
+					return React.createElement(PostCard, { key: post.id, post: post });
 				});
 
 				return React.createElement(
@@ -76,8 +100,14 @@ var Home = (function (_React$Component) {
 										{ style: { padding: 36, textAlign: "center" } },
 										React.createElement(
 											"h2",
-											{ style: { color: "#fff" } },
-											"iOS Development Immersive"
+											{ style: { color: "#fff", fontSize: 36 } },
+											"Curated Professional Network"
+										),
+										React.createElement("hr", null),
+										React.createElement(
+											"p",
+											{ style: { color: "#fff", marginTop: 12, fontSize: 14 } },
+											"Social Promotion is a curated platform for young professionals, creatives, and high performing students. Find your next job, business partner, apartment, and more on Social Promotion."
 										)
 									)
 								),
@@ -90,14 +120,15 @@ var Home = (function (_React$Component) {
 										React.createElement(
 											"h2",
 											null,
-											"Sign Up"
+											"Apply"
 										),
-										"The Full Stack 10-week coding bootcamp builds real projects for launch",
-										React.createElement("input", { onChange: this.updateVisitor, id: "name", type: "text", placeholder: "Name", style: { background: "#f9f9f9", borderRadius: 3, marginTop: 9 }, className: "form-control" }),
-										React.createElement("input", { type: "text", placeholder: "Email", style: { background: "#f9f9f9", borderRadius: 3, marginTop: 9 }, className: "form-control" }),
+										React.createElement("hr", null),
+										"Apply for our beta and be among the first on the platform when we launch in Spring.",
+										React.createElement("input", { onChange: this.updateVisitor, id: "name", type: "text", placeholder: "Name", style: { background: "#f9f9f9", borderRadius: 3, marginTop: 14 }, className: "form-control" }),
+										React.createElement("input", { onChange: this.updateVisitor, id: "email", type: "text", placeholder: "Email", style: { background: "#f9f9f9", borderRadius: 3, marginTop: 9 }, className: "form-control" }),
 										React.createElement(
 											"select",
-											{ className: "form-control", style: { background: "#f9f9f9", height: 36 } },
+											{ onChange: this.selectLocation, className: "form-control", style: { background: "#f9f9f9", height: 36, marginBottom: 32 } },
 											React.createElement(
 												"option",
 												null,
@@ -115,14 +146,9 @@ var Home = (function (_React$Component) {
 											)
 										),
 										React.createElement(
-											"h3",
-											{ style: { marginBottom: 12 } },
-											"Next Cohort Begins March 7th"
-										),
-										React.createElement(
 											"a",
 											{ onClick: this.signUp, href: "#", className: "btn-primary btn btn-small button btn-round xs-margin-bottom-five" },
-											"Learn More"
+											"Submit"
 										)
 									)
 								)
@@ -142,25 +168,52 @@ var Home = (function (_React$Component) {
 									"div",
 									{ className: "col-md-4" },
 									React.createElement(
-										"span",
-										{ className: "title-large text-uppercase letter-spacing-1 font-weight-600 black-text" },
-										"Cutting Edge Courses"
+										"h1",
+										{ style: { color: "#444" } },
+										"Exclusive Opportunities"
 									),
-									React.createElement("div", { className: "separator-line-thick bg-fast-pink no-margin-lr" }),
+									React.createElement("hr", null),
 									React.createElement(
 										"p",
 										null,
-										"The Full Stack conducts development courses that are relevant in the startup and tech world today. We focus on the most up-to-date frameworks and libraries such as React, Angular, and Node JS. Our students are always prepared for rapid changes in the industry and are ready to work in tech after a course."
+										"Social Promotion will be a closed platform for exclusive job listings, business partnerships, events, rentals and more. By curating our membership, we ensure that all content on SP is a legitimate opportunity with high performing individuals."
 									),
 									React.createElement(
-										"p",
-										null,
-										"Our courses come in three varieties: part time, online, and immersive. The part time courses are designed for busy professionals who are looking to become more well-versed in technology. The online courses are for those who learn at their own pace. The immersive courses are for those who aim to change careers and become professional programmers."
-									),
-									React.createElement(
-										"a",
-										{ href: "/courses", className: "btn-success btn btn-small button btn-round xs-margin-bottom-five" },
-										"View All Courses"
+										"div",
+										{ className: "front-panel" },
+										React.createElement(
+											"h2",
+											null,
+											"Apply"
+										),
+										React.createElement("hr", null),
+										"Apply for our beta and be among the first on the platform when we launch in Spring.",
+										React.createElement("input", { onChange: this.updateVisitor, id: "name", type: "text", placeholder: "Name", style: { background: "#f9f9f9", borderRadius: 3, marginTop: 14 }, className: "form-control" }),
+										React.createElement("input", { onChange: this.updateVisitor, id: "email", type: "text", placeholder: "Email", style: { background: "#f9f9f9", borderRadius: 3, marginTop: 9 }, className: "form-control" }),
+										React.createElement(
+											"select",
+											{ onChange: this.selectLocation, className: "form-control", style: { background: "#f9f9f9", height: 36, marginBottom: 32 } },
+											React.createElement(
+												"option",
+												null,
+												"New York"
+											),
+											React.createElement(
+												"option",
+												null,
+												"Boston"
+											),
+											React.createElement(
+												"option",
+												null,
+												"San Francisco"
+											)
+										),
+										React.createElement(
+											"a",
+											{ onClick: this.signUp, href: "#", className: "btn-primary btn btn-small button btn-round xs-margin-bottom-five" },
+											"Submit"
+										)
 									)
 								),
 								React.createElement(

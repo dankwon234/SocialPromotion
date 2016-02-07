@@ -10,28 +10,37 @@ var _classCallCheck = function (instance, Constructor) { if (!(instance instance
 
 var React = _interopRequire(require("react"));
 
-var SectionCard = (function (_React$Component) {
-	function SectionCard() {
-		_classCallCheck(this, SectionCard);
+var PostCard = (function (_React$Component) {
+	function PostCard() {
+		_classCallCheck(this, PostCard);
 
 		if (_React$Component != null) {
 			_React$Component.apply(this, arguments);
 		}
 	}
 
-	_inherits(SectionCard, _React$Component);
+	_inherits(PostCard, _React$Component);
 
-	_prototypeProperties(SectionCard, null, {
+	_prototypeProperties(PostCard, null, {
+		truncateText: {
+			value: function truncateText(text, limit) {
+				if (text.length < limit) {
+					return text;
+				}text = text.substring(0, limit);
+				return text + "...";
+			},
+			writable: true,
+			configurable: true
+		},
 		render: {
 			value: function render() {
-				var interests = this.props.profile.interests.map(function (interest) {
+				var tags = this.props.post.tags.map(function (tag) {
 					return React.createElement(
 						"span",
-						{ key: interest, className: "tag" },
-						interest
+						{ key: tag, className: "tag" },
+						tag
 					);
 				});
-
 
 				return React.createElement(
 					"div",
@@ -45,7 +54,7 @@ var SectionCard = (function (_React$Component) {
 							React.createElement(
 								"div",
 								{ className: "col-md-2 col-sm-2 col-xs-6 no-padding xs-margin-bottom-five" },
-								React.createElement("img", { src: "/images/" + this.props.profile.image, alt: "", style: { border: "1px solid #ddd" }, className: "white-round-border spa-packages-img" })
+								React.createElement("img", { src: "/images/" + this.props.post.image, alt: "", style: { border: "1px solid #ddd" }, className: "white-round-border spa-packages-img" })
 							),
 							React.createElement(
 								"div",
@@ -53,14 +62,20 @@ var SectionCard = (function (_React$Component) {
 								React.createElement(
 									"h2",
 									null,
-									this.props.profile.name
+									this.props.post.title
 								),
 								React.createElement(
 									"p",
 									null,
-									"NYC | Angular JS Developer"
+									this.props.post.location,
+									this.props.post.company.length > 0 ? " | " + this.props.post.company : ""
 								),
-								interests
+								React.createElement(
+									"p",
+									null,
+									this.truncateText(this.props.post.description, 160)
+								),
+								tags
 							)
 						)
 					)
@@ -71,7 +86,7 @@ var SectionCard = (function (_React$Component) {
 		}
 	});
 
-	return SectionCard;
+	return PostCard;
 })(React.Component);
 
-module.exports = SectionCard;
+module.exports = PostCard;

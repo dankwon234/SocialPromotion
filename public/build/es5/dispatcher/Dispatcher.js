@@ -2,6 +2,6 @@
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
 
-var Dispatcher = _interopRequire(require("flux"));
+var Flux = _interopRequire(require("flux"));
 
-module.exports = new Dispatcher();
+module.exports = new Flux.Dispatcher();
