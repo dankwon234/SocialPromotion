@@ -14,6 +14,8 @@ var React = _interopRequire(require("react"));
 
 var SPActionCreator = _interopRequire(require("../actions/SPActionCreator"));
 
+var AccountStore = _interopRequire(require("../stores/AccountStore"));
+
 var Register = (function (_React$Component) {
 	function Register(props, context) {
 		_classCallCheck(this, Register);
@@ -21,6 +23,7 @@ var Register = (function (_React$Component) {
 		_get(Object.getPrototypeOf(Register.prototype), "constructor", this).call(this, props, context);
 		this.updateVisitor = this.updateVisitor.bind(this);
 		this.signUp = this.signUp.bind(this);
+		this.refreshData = this.refreshData.bind(this);
 		this.selectLocation = this.selectLocation.bind(this);
 		this.state = {
 			visitor: {
@@ -34,6 +37,21 @@ var Register = (function (_React$Component) {
 	_inherits(Register, _React$Component);
 
 	_prototypeProperties(Register, null, {
+		componentDidMount: {
+			value: function componentDidMount() {
+				//		console.log('componentDidMount')
+				AccountStore.addChangeListener(this.refreshData);
+			},
+			writable: true,
+			configurable: true
+		},
+		refreshData: {
+			value: function refreshData() {
+				console.log("REFRESH DATA: " + JSON.stringify(AccountStore.getCurrentUser()));
+			},
+			writable: true,
+			configurable: true
+		},
 		signUp: {
 			value: function signUp(event) {
 				event.preventDefault();
