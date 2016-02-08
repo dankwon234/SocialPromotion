@@ -2,6 +2,7 @@ import React from 'react'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
 import Home from '../components/pages/Home'
+import Posts from '../components/pages/Posts'
 
 class Main extends React.Component {
 
@@ -22,6 +23,9 @@ class Main extends React.Component {
 
 		if (this.props.page == 'home'){
 			content = <Home />;
+		} 
+		if (this.props.page == 'posts'){
+			content = <Posts />;
 		} 
 
 
