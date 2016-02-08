@@ -16,6 +16,8 @@ var Footer = _interopRequire(require("../components/Footer"));
 
 var Home = _interopRequire(require("../components/pages/Home"));
 
+var Posts = _interopRequire(require("../components/pages/Posts"));
+
 var Main = (function (_React$Component) {
 	function Main() {
 		_classCallCheck(this, Main);
@@ -48,6 +50,9 @@ var Main = (function (_React$Component) {
 
 				if (this.props.page == "home") {
 					content = React.createElement(Home, null);
+				}
+				if (this.props.page == "posts") {
+					content = React.createElement(Posts, null);
 				}
 
 

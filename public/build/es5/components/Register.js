@@ -47,7 +47,9 @@ var Register = (function (_React$Component) {
 		},
 		refreshData: {
 			value: function refreshData() {
-				console.log("REFRESH DATA: " + JSON.stringify(AccountStore.getCurrentUser()));
+				var currentUser = AccountStore.getCurrentUser();
+				console.log("REFRESH DATA: " + JSON.stringify(currentUser));
+				if (currentUser.id != null) window.location.href = "/posts";
 			},
 			writable: true,
 			configurable: true
