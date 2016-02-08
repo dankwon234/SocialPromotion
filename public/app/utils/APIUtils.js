@@ -1,5 +1,6 @@
 import Promise from 'bluebird'
 import superagent from 'superagent'
+import SPServerActionCreator from '../actions/SPServerActionCreator'
 
 function urlRequest(method, path, params){
     return new Promise(function (resolve, reject){
@@ -35,7 +36,7 @@ export default {
 		urlRequest('post', '/api/profile', profile)
 		.then(function(response){
 			console.log('API UTILS - RESPONSE: '+JSON.stringify(response));
-//			FullStackServerActionCreator.userLoggedIn(response.profile);
+			SPServerActionCreator.profileRegistered(response.profile);
 		})
 		.catch(function(err){
 			console.log('ERROR: '+err.message);
