@@ -43,7 +43,7 @@ router.post('/:resource', function(req, res, next) {
 
 			res.json({
 				confirmation: 'success',
-				resource: profile.summary()				
+				profile: profile.summary()				
 			});
 
 		});
