@@ -1,5 +1,6 @@
 import React from 'react'
 import SPActionCreator from '../actions/SPActionCreator'
+import AccountStore from '../stores/AccountStore'
 
 class Register extends React.Component {
 
@@ -7,6 +8,7 @@ class Register extends React.Component {
 		super(props, context);
 		this.updateVisitor = this.updateVisitor.bind(this);
 		this.signUp = this.signUp.bind(this);
+		this.refreshData = this.refreshData.bind(this);
 		this.selectLocation = this.selectLocation.bind(this);
 		this.state = {
 			visitor: {
@@ -15,6 +17,19 @@ class Register extends React.Component {
 				city: 'new york'
 			}
 		};
+	}
+
+	componentDidMount(){
+//		console.log('componentDidMount')
+		AccountStore.addChangeListener(this.refreshData);
+	}
+
+	refreshData(){
+		var currentUser = AccountStore.getCurrentUser();
+		console.log('REFRESH DATA: '+JSON.stringify(currentUser));
+		if (currentUser.id != null)
+			window.location.href = '/posts';
+		
 	}
 
 	signUp(event){
