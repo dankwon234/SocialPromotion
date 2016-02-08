@@ -39,5 +39,6 @@
     <div id="app">{{{react}}}</div>
 
     <script type="text/javascript" src="/build/bundle.js"></script>
+    <script type="text/javascript" src="/build/vendor.min.js"></script>
   </body>
 </html>
